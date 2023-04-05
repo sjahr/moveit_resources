@@ -32,7 +32,7 @@ def generate_launch_description():
     moveit_configs = (
         MoveItConfigsBuilder("moveit_resources_panda")
         .robot_description(file_path="config/panda.urdf.xacro")
-        .planning_pipelines("ompl", ["ompl", "chomp", "pilz_industrial_motion_planner"])
+        .planning_pipelines("ompl", ["ompl"])
         .moveit_cpp(
             file_path=get_package_share_directory("moveit_resources_benchmarking")
             + "/config/moveit_cpp.yaml"
@@ -41,8 +41,8 @@ def generate_launch_description():
     )
 
     # Load additional OMPL pipeline
-    ompl_planning_pipeline_config = {
-        "ompl_rrtc": {
+    ompl_planning_pipeline_config2 = {
+        "ompl_2": {
             "planning_plugin": "ompl_interface/OMPLPlanner",
             "request_adapters": """\
                 default_planner_request_adapters/AddTimeOptimalParameterization \
@@ -57,11 +57,79 @@ def generate_launch_description():
     ompl_planning_yaml = load_yaml(
         "moveit_resources_panda_moveit_config", "config/ompl_planning.yaml"
     )
-    ompl_planning_pipeline_config["ompl_rrtc"].update(ompl_planning_yaml)
+    ompl_planning_pipeline_config2["ompl_2"].update(ompl_planning_yaml)
+
+    # Add third OMPL config
+    # Load additional OMPL pipeline
+    ompl_planning_pipeline_config3 = {
+        "ompl_3": {
+            "planning_plugin": "ompl_interface/OMPLPlanner",
+            "request_adapters": """\
+                default_planner_request_adapters/AddTimeOptimalParameterization \
+                default_planner_request_adapters/FixWorkspaceBounds \
+                default_planner_request_adapters/FixStartStateBounds \
+                default_planner_request_adapters/FixStartStateCollision \
+                default_planner_request_adapters/FixStartStatePathConstraints \
+              """,
+            "start_state_max_bounds_error": 0.1,
+        }
+    }
+    ompl_planning_pipeline_config3["ompl_3"].update(ompl_planning_yaml)
+
+    # Add fourth config
+    # Load additional OMPL pipeline
+    ompl_planning_pipeline_config4 = {
+        "ompl_4": {
+            "planning_plugin": "ompl_interface/OMPLPlanner",
+            "request_adapters": """\
+                default_planner_request_adapters/AddTimeOptimalParameterization \
+                default_planner_request_adapters/FixWorkspaceBounds \
+                default_planner_request_adapters/FixStartStateBounds \
+                default_planner_request_adapters/FixStartStateCollision \
+                default_planner_request_adapters/FixStartStatePathConstraints \
+              """,
+            "start_state_max_bounds_error": 0.1,
+        }
+    }
+    ompl_planning_pipeline_config4["ompl_4"].update(ompl_planning_yaml)
+
+    # Add fourth config
+    # Load additional OMPL pipeline
+    ompl_planning_pipeline_config5 = {
+        "ompl_5": {
+            "planning_plugin": "ompl_interface/OMPLPlanner",
+            "request_adapters": """\
+                default_planner_request_adapters/AddTimeOptimalParameterization \
+                default_planner_request_adapters/FixWorkspaceBounds \
+                default_planner_request_adapters/FixStartStateBounds \
+                default_planner_request_adapters/FixStartStateCollision \
+                default_planner_request_adapters/FixStartStatePathConstraints \
+              """,
+            "start_state_max_bounds_error": 0.1,
+        }
+    }
+    ompl_planning_pipeline_config5["ompl_5"].update(ompl_planning_yaml)
+
+    # Add fourth config
+    # Load additional OMPL pipeline
+    ompl_planning_pipeline_config6 = {
+        "ompl_6": {
+            "planning_plugin": "ompl_interface/OMPLPlanner",
+            "request_adapters": """\
+                default_planner_request_adapters/AddTimeOptimalParameterization \
+                default_planner_request_adapters/FixWorkspaceBounds \
+                default_planner_request_adapters/FixStartStateBounds \
+                default_planner_request_adapters/FixStartStateCollision \
+                default_planner_request_adapters/FixStartStatePathConstraints \
+              """,
+            "start_state_max_bounds_error": 0.1,
+        }
+    }
+    ompl_planning_pipeline_config6["ompl_6"].update(ompl_planning_yaml)
 
     sqlite_database = (
         get_package_share_directory("moveit_resources_benchmarking")
-        + "/databases/panda_test_db.sqlite"
+        + "/databases/panda_kitchen_test_db.sqlite"
     )
 
     warehouse_ros_config = {
@@ -88,7 +156,11 @@ def generate_launch_description():
             moveit_ros_benchmarks_config,
             moveit_configs.to_dict(),
             warehouse_ros_config,
-            ompl_planning_pipeline_config,
+            ompl_planning_pipeline_config2,
+            ompl_planning_pipeline_config3,
+            ompl_planning_pipeline_config4,
+            ompl_planning_pipeline_config5,
+            ompl_planning_pipeline_config6,
         ],
     )
 
