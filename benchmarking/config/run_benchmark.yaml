@@ -9,20 +9,20 @@ parameters:
     start_states_regex: ready
 planning_pipelines:
   # Benchmark tool
-  pipelines: [OMPL_RRTC, ANYTIME1, ANYTIME2]
-  OMPL_RRTC:
+  pipelines: [ANYTIME1, ANYTIME2 ,ANYTIME3]
+  ANYTIME1:
     name: ompl
     planners:
-      - RRTConnectkConfigDefault
-  ANYTIME1:
+      - AnytimePathShortening1
+  ANYTIME2:
      name: ompl_2
      planners:
-       - AnytimePathShortening1
-  ANYTIME2:
+       - AnytimePathShortening2
+  ANYTIME3:
      name: ompl_3
      planners:
-       - AnytimePathShortening2
-  parallel_pipelines: [ANYTIME3]
-  ANYTIME3:
+       - AnytimePathShortening3
+  parallel_pipelines: [ompl_rrtc]
+  ompl_rrtc:
     pipelines: [ompl_4]
-    planner_ids: [AnytimePathShortening3]
+    planner_ids: [RRTConnectkConfigDefault]
