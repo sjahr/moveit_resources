@@ -61,7 +61,7 @@ def generate_launch_description():
 
     sqlite_database = (
         get_package_share_directory("moveit_resources_benchmarking")
-        + "/databases/panda_test_db.sqlite"
+        + "/databases/panda_kitchen_test_db.sqlite"
     )
 
     warehouse_ros_config = {
